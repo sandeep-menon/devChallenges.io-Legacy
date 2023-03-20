@@ -6,21 +6,90 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>devChallenges.io</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+        <link rel="icon" href="./resources/devchallenges.png">
+        <style>
+
+        </style>
     </head>
     <body>
-        <h1 style="text-align: center;">devChallenges.io</h1>
+        <h1 style="text-align: center; margin: 12px 0px 12px 0px;">devChallenges.io</h1>
         <div style="display: flex; justify-content: space-evenly; align-items: center;">
-            <div style="font-size: 48px; cursor: pointer;">◀️</div>
+            <div style="font-size: 48px; cursor: pointer;" onclick="leftClick()">◀️</div>
             <div style="display: flex; justify-content: center;">
                 <img src="https://source.unsplash.com/random" alt="" style="height: 65vh; text-align: center;">
             </div>
-            <div style="font-size: 48px; cursor: pointer;">▶️</div>
+            <div style="font-size: 48px; cursor: pointer;" onclick="rightClick()">▶️</div>
         </div>
         <div>
+            <div id="pager" style="display:flex; justify-content: center; align-items: center;">
+                
+            </div>
             <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-                <h2>Project Title</h3>
-                <h4>Project Description</h6>
+                <a id="project-link" href=""><h2 id="project-title" style="margin: 12px 0px 12px 0px;">Project Title</h3></a>
+                <h5 id="project-desc" style="margin: 12px 0px 12px 0px;">Project Description</h5>
+                <a id="project-source" style="font-family: 'Courier New', Courier, monospace; cursor: pointer;" href="" target="_blank">Source Code</a>
             </div>
         </div>
+        <script>
+            var pointer = 0;
+            var listOfProjects = [];
+            listOfProjects.push({
+                name: "404 Not Found",
+                desc: "HTTP 404 Page not found responsive implementation.",
+                link: "./Responsive_Web_Developer/404_Not_Found/index.html",
+                source: "https://github.com/sandeep-menon/devChallenges.io/blob/main/Responsive_Web_Developer/404_Not_Found/index.html",
+            });
+
+            listOfProjects.push({
+                name: "My team page",
+                desc: "My team page responsive implementation.",
+                link: "./Responsive_Web_Developer/My_Team_Page/index.html",
+                source: "https://github.com/sandeep-menon/devChallenges.io/blob/main/Responsive_Web_Developer/My_Team_Page/index.html",
+            });
+
+            function leftClick() {
+                if(pointer > 0) {
+                    pointer = pointer - 1;
+                }
+                updatePage();
+            }
+
+            function rightClick() {
+                if(pointer < listOfProjects.length - 1) {
+                    pointer = pointer + 1;
+                }
+                updatePage();
+            }
+
+            function updatePage() {
+                let totalProjects = listOfProjects.length;
+                let pager = document.getElementById("pager");
+                pager.innerHTML = "";
+                for(let i=0; i<totalProjects; i++) {
+                    let elem = document.createElement("div");
+                    elem.innerText = i + 1;
+                    if(i == pointer) {
+                        elem.style = "margin: 1em 0.5em 0em 0.5em; padding: 0em 0.5em 0em 0.5em; border: 1px solid #bdbdbd; border-radius: 0.5em; background: #222222";
+                    } else {
+                        elem.style = "margin: 1em 0.5em 0em 0.5em; padding: 0em 0.5em 0em 0.5em; border: 1px solid #bdbdbd; border-radius: 0.5em; background: #4f4f4f";
+                    }
+                    
+                    pager.appendChild(elem);
+                }
+                let projectTitle = listOfProjects[pointer].name;
+                let projectDesc = listOfProjects[pointer].desc;
+                let projectLink = listOfProjects[pointer].link;
+                let projectSource = listOfProjects[pointer].source;
+
+                document.getElementById("project-title").innerText = projectTitle;
+                document.getElementById("project-desc").innerText = projectDesc;
+                document.getElementById("project-link").href = projectLink;
+                document.getElementById("project-source").href = projectSource;
+            }
+
+            updatePage();
+
+
+        </script>
     </body>
 </html>
